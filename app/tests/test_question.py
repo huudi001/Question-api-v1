@@ -5,6 +5,12 @@ from base_test import BaseTestCase
 class TestQuestions(BaseTestCase):
 
 
+    def test_single_question(self):
+          self.client.post('/api/v1/questions', data=json.dumps(dict(created_on=str(datetime.datetime.now()),question_id=1, created_by=1, meetup=2, title='tech', body='technology', votes=2)), content_type='application/json')
+          result = self.client.get('/api/v1/questions/1')
+          self.assertEqual(result.status_code,200)
+
+
     def test_downvote_quetion(self):
           self.client.post('/api/v1/questions', data=json.dumps(dict(created_on=str(datetime.datetime.now()),question_id=1, created_by=1, meetup=2, title='tech', body='technology', votes=2)), content_type='application/json')
           result = self.client.patch('/api/v1/questions/1/downvote')
@@ -35,5 +41,6 @@ class TestQuestions(BaseTestCase):
             response_data = json.loads(empty_response.data)
             self.assertEqual("Fields cannot be empty",response_data["message"])
             self.assertEqual(empty_response.status_code, 400)
+
 
 

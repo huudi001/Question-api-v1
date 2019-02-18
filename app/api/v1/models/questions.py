@@ -7,6 +7,12 @@ QUESTIONS_LIST = []
 
 class Questions():
 
+
+    def get_single_question(self, question_id):
+        question = get_by_key('question_id', question_id, QUESTIONS_LIST)
+        if not question:
+            return {"message": "question does not exist"}
+        return question
     def patch2(self,question_id):
 
         question= [questions for questions in QUESTIONS_LIST if questions['question_id'] == question_id]
@@ -61,5 +67,6 @@ class Questions():
 
         QUESTIONS_LIST.append(self.single_question)
         return {"message": "Question has been added successfully"}
+
 
 

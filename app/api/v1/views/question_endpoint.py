@@ -11,6 +11,15 @@ Question = questions.Questions()
 
 
 
+@question.route('/questions/<int:question_id>', methods=['GET'])
+def get_question(question_id):
+
+
+
+    response = jsonify(Question.get_single_question(question_id))
+    response.status_code = 200
+    return response
+
 @question.route('/questions/<int:question_id>/downvote', methods=['PATCH'])
 def downvote(question_id):
 
@@ -59,5 +68,6 @@ def post_question():
     response = jsonify(Question.put(question_id, created_on, created_by, meetup, title, body, votes))
     response.status_code = 201
     return response
+
 
 
