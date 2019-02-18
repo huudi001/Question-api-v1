@@ -2,9 +2,9 @@ from flask import Flask, jsonify
 #from flask_jwt_extended import JWTManager
 from instance.config import app_config
 #from .api.v1.views.auth_endpoints import auth, BLACKLIST
-
 from .api.v1.views.meet_up_endpoint import meetup
 from .api.v1.views.question_endpoint import question
+
 
 
 
@@ -55,8 +55,4 @@ def create_app(config):
 
 
 
-
-
-
-return app
-
+    return app

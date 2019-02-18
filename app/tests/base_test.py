@@ -15,3 +15,4 @@ class BaseTestCase(TestCase):
        
         del QUESTIONS_LIST[:]
         del MEETUPS_LIST[:]
+
