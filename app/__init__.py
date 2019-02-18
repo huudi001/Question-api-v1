@@ -6,6 +6,15 @@ from instance.config import app_config
 from .api.v1.views.auth_endpoints  import auth
 
 
+
+from .api.v1.views.meet_up_endpoint import meetup
+from .api.v1.views.question_endpoint import question
+
+
+
+
+
+
 def create_app(config):
     app = Flask(__name__)
     app.url_map.strict_slashes = False
@@ -47,7 +56,11 @@ def create_app(config):
         return jsonify(dict(error='Internal server error')), 500
 
     #app.register_blueprint(auth)
+
     app.register_blueprint(auth)
+    app.register_blueprint(meetup)
+    app.register_blueprint(question)
+
 
 
 
