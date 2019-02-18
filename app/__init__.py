@@ -7,6 +7,7 @@ from .api.v1.views.meet_up_endpoint import meetup
 from .api.v1.views.question_endpoint import question
 
 
+
 def create_app(config):
     app = Flask(__name__)
     app.url_map.strict_slashes = False
@@ -55,4 +56,7 @@ def create_app(config):
 
 
 
-    return app
+
+
+return app
+
