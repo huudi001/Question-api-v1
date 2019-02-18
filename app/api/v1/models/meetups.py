@@ -5,6 +5,12 @@ MEETUPS_LIST = []
 
 import datetime
 class MeetUps():
+
+    def get_upcoming(self,upcoming):
+        upcoming = datetime.datetime.now().isoformat()
+
+        meetup = [meetups for meetups in MEETUPS_LIST if meetups['happening_on'] > upcoming]
+        return MeetUps
     def put(self, meetup_id, created_on, location, images, topic, happening_on, tags):
         self.single_meetup = {}
 
@@ -25,4 +31,4 @@ class MeetUps():
 
         MEETUPS_LIST.append(self.single_meetup)
 
-return {"message": "MeetUp has been added successfully"}
+        return {"message": "MeetUp has been added successfull"}
