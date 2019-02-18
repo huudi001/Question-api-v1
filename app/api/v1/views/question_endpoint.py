@@ -9,6 +9,15 @@ question = Blueprint('question', __name__, url_prefix='/api/v1')
 
 Question = questions.Questions()
 
+
+@question.route('/questions/<meetup_id>', methods=['GET'])
+def get_all_questions(self,meetup_id):
+
+
+        question = [questions for questions in QUESTIONS_LIST if questions['meetup'] == meetup_id]
+        if  not  question:
+            return {"message": "question for this meetup does not exist"}
+        return question
 @question.route('/questions', methods=['POST'])
 #@jwt_required
 def post_question():
@@ -34,3 +43,4 @@ def post_question():
     response = jsonify(Question.put(question_id, created_on, created_by, meetup, title, body, votes))
     response.status_code = 201
     return response
+
