@@ -39,6 +39,7 @@ class Users():
 
         USERS_LIST.append(self.oneuser_dict)
         return {"message": "User added successfully"}
+
     def verify_password(self, username, password):
 
         user = get_by_key('username', username, USERS_LIST)

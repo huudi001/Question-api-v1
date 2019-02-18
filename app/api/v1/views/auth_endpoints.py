@@ -10,6 +10,7 @@ auth = Blueprint('auth', __name__, url_prefix='/api/v1')
 
 BLACKLIST = set()
 User = users.Users()
+
 @auth.route('/register', methods=['POST'])
 def register():
     '''endpoint to add  a  new user'''
@@ -44,6 +45,7 @@ def register():
     response = jsonify(User.put(user_id,firstname, lastname, othername, email,password, phoneNumber, username, isAdmin, registered))
     response.status_code = 201
     return response
+
     
 @auth.route('/login', methods=['POST'])
 def login():
@@ -73,3 +75,4 @@ def logout():
     json_token_identifier = get_raw_jwt()['jti']
     BLACKLIST.add(json_token_identifier)
     return jsonify({"message": "Successfully logged out"}), 200
+

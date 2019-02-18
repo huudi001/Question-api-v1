@@ -42,6 +42,7 @@ class Testauth(BaseTestCase):
             response_data = json.loads(response.data)
             self.assertEqual("Enter a valid email address",response_data["message"])
             self.assertEqual(response.status_code,403)
+
     def test_login(self):
         with self.client:
             registered_user = self.client.post('/api/v1/register', data=json.dumps(dict(user_id=1,firstname='khalid',lastname='hai',othername='full',email='khalud604@gmail.com',password='maneed2',confirm_password='maneed2',phoneNumber='0706673533',username='mood',isAdmin='False',registered=str(datetime.datetime.now()) )), content_type='application/json')
@@ -98,3 +99,4 @@ class Testauth(BaseTestCase):
             self.assertEqual("Successfully logged out",
                              response_data2["message"])
             self.assertEqual(response.status_code, 200)
+
