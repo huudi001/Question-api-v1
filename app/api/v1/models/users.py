@@ -39,3 +39,18 @@ class Users():
 
         USERS_LIST.append(self.oneuser_dict)
         return {"message": "User added successfully"}
+
+    def verify_password(self, username, password):
+
+        user = get_by_key('username', username, USERS_LIST)
+        if "message" not in user:
+            result = check_password_hash(
+                user['password'], password)
+            if result is True:
+                return "True"
+            return {"message": "The password you entered is incorrect"}
+        return user
+
+    def get_user_by_username(self, username):
+        result = get_by_key('username', username, USERS_LIST)
+        return result

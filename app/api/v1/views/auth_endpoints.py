@@ -11,7 +11,6 @@ auth = Blueprint('auth', __name__, url_prefix='/api/v1')
 BLACKLIST = set()
 User = users.Users()
 
-
 @auth.route('/register', methods=['POST'])
 def register():
     '''endpoint to add  a  new user'''
@@ -46,3 +45,34 @@ def register():
     response = jsonify(User.put(user_id,firstname, lastname, othername, email,password, phoneNumber, username, isAdmin, registered))
     response.status_code = 201
     return response
+
+    
+@auth.route('/login', methods=['POST'])
+def login():
+    '''login user by verifying password and creating an access token'''
+    data = request.get_json()
+    if not data:
+        return jsonify({"message": "Fields cannot be empty"}), 400
+    username = data.get('username')
+    password = data.get('password')
+    if not username or not password:
+        return jsonify({"message": "Username or password missing"}), 206
+    verify = User.verify_password(username, password)
+    user = User.get_user_by_username(username)
+    if verify == "True":
+        access_token = create_access_token(identity=user)
+        return jsonify(dict(token=access_token, message="Login successful!")), 200
+
+    response = jsonify(verify)
+    response.status_code = 401
+    return response
+
+
+@auth.route('/logout', methods=['POST'])
+@jwt_required
+def logout():
+    '''logout user by revoking password'''
+    json_token_identifier = get_raw_jwt()['jti']
+    BLACKLIST.add(json_token_identifier)
+    return jsonify({"message": "Successfully logged out"}), 200
+

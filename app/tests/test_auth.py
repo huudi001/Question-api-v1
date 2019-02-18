@@ -42,3 +42,61 @@ class Testauth(BaseTestCase):
             response_data = json.loads(response.data)
             self.assertEqual("Enter a valid email address",response_data["message"])
             self.assertEqual(response.status_code,403)
+
+    def test_login(self):
+        with self.client:
+            registered_user = self.client.post('/api/v1/register', data=json.dumps(dict(user_id=1,firstname='khalid',lastname='hai',othername='full',email='khalud604@gmail.com',password='maneed2',confirm_password='maneed2',phoneNumber='0706673533',username='mood',isAdmin='False',registered=str(datetime.datetime.now()) )), content_type='application/json')
+            response = self.client.post('/api/v1/login',data=json.dumps(dict(username='mood',password='maneed2')),content_type='application/json')
+            response_data = json.loads(response.data)
+
+
+
+            self.assertEqual("Login successful!", response_data["message"])
+            self.assertEqual(response.status_code, 200)
+            response2 = self.client.post('/api/v1/login', data=json.dumps(dict()), content_type='application/json')
+            response_data2 = json.loads(response2.data)
+            self.assertEqual("Fields cannot be empty",response_data2["message"])
+            self.assertEqual(response2.status_code,400)
+            response3 = self.client.post('/api/v1/login', data=json.dumps(dict(username='khalid')), content_type='application/json')
+            response_data3 = json.loads(response3.data)
+            self.assertEqual("Username or password missing",response_data3["message"])
+            self.assertEqual(response3.status_code,206)
+    def test_user_logout(self):
+        with self.client:
+            # Register a user
+            self.client.post(
+                '/api/v1/register',
+                data=json.dumps(dict(
+                    firstname='mohamed',
+                    lastname='hassan',
+                    othername='amiin',
+                    email='mary@gmail.com',
+                    phoneNumber='09877444',
+                    username='mary',
+                    password='1234',
+                    confirm_password='1234',
+                    isAdmin='true',
+                    registered=str(datetime.datetime.now())
+                )),
+                content_type='application/json'
+            )
+            response = self.client.post(
+                '/api/v1/login',
+                data=json.dumps(dict(
+                    username='mary',
+                    password='1234'
+
+                )),
+                content_type='application/json'
+            )
+            response_data = json.loads(response.data)
+            token = response_data["token"]
+            self.assertEqual("Login successful!", response_data["message"])
+            self.assertEqual(response.status_code, 200)
+            response2 = self.client.post(
+                '/api/v1/logout', headers=dict(Authorization="Bearer " + token))
+            response_data2 = json.loads(response2.data)
+            self.assertEqual("Successfully logged out",
+                             response_data2["message"])
+            self.assertEqual(response.status_code, 200)
+

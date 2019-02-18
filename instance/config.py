@@ -16,6 +16,7 @@ class Development(Config):
 
 class Testing(Config):
  
+
     '''configurations for testing with a separate test database'''
     TESTING = True
     Debug = True
