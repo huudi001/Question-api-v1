@@ -8,9 +8,7 @@ USERS_LIST = []
 
 
 class Users():
-
-
-    def put(self, user_id, firstname, lastname, othername, email, password, phoneNumber, username, isAdmin,registered):
+  def put(self, user_id, firstname, lastname, othername, email, password, phoneNumber, username, isAdmin,registered):
 
         self.oneuser_dict = {}
 
@@ -50,7 +48,12 @@ class Users():
                 return "True"
             return {"message": "The password you entered is incorrect"}
         return user
-
+     
+    def get_all_users(self):
+        result = check_list(USERS_LIST)
+        return result
+        
+        
     def get_user_by_username(self, username):
         result = get_by_key('username', username, USERS_LIST)
         return result

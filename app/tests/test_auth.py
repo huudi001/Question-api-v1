@@ -2,6 +2,7 @@ import json
 import datetime
 from base_test import  BaseTestCase
 class Testauth(BaseTestCase):
+
     def test_registration(self):
         with self.client:
             response = self.client.post('/api/v1/register', data=json.dumps(dict(user_id=1,firstname='khalid',lastname='hai',othername='full',email='khalud604@gmail.com',password='Jinja2',confirm_password='Jinja2',phoneNumber='0706673533',username='hashi',isAdmin='False',registered=str(datetime.datetime.now()) )), content_type='application/json')
@@ -99,4 +100,23 @@ class Testauth(BaseTestCase):
             self.assertEqual("Successfully logged out",
                              response_data2["message"])
             self.assertEqual(response.status_code, 200)
-
+def test_get_all_users(self):
+        # Register a user
+        self.client.post(
+            '/api/v1/register',
+            data=json.dumps(dict(
+                firstname='mohamed',
+                lastname='hassan',
+                othername='amiin',
+                email='mary@gmail.com',
+                phoneNumber='09877444',
+                username='mary',
+                password='1234',
+                confirm_password='1234',
+                isAdmin='true',
+                registered=str(datetime.datetime.now())
+            )),
+            content_type='application/json'
+        )
+        result = self.client.get('/api/v1/users')
+        self.assertEqual(result.status_code, 200)
