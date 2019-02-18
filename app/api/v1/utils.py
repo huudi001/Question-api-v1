@@ -14,4 +14,5 @@ def get_by_key(key, val, dict_):
 def check_list(list_):
     if not list_:
         return {"message": "There are no records"}  
-return list_
+    return list_
+
