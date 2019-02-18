@@ -10,7 +10,17 @@ question = Blueprint('question', __name__, url_prefix='/api/v1')
 Question = questions.Questions()
 
 
-@question.route('/questions/<int:question_id>/upvote', methods=['PATCH'])
+
+@question.route('/questions/<int:question_id>/downvote', methods=['PATCH'])
+def downvote(question_id):
+
+
+
+    response = jsonify(Question.patch2(question_id))
+    response.status_code = 200
+    return response
+
+@questionroute('/questions/<int:question_id>/upvote', methods=['PATCH'])
 def upvote(question_id):
 
     response = jsonify(Question.patch1(question_id))

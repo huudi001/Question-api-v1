@@ -6,6 +6,13 @@ QUESTIONS_LIST = []
 
 
 class Questions():
+
+    def patch2(self,question_id):
+
+        question= [questions for questions in QUESTIONS_LIST if questions['question_id'] == question_id]
+        if  not question:
+            return {"message":"question is not available"}
+        question[0]['votes']-=1
     def get_all_questions(self,meetup_id):
 
 
@@ -54,4 +61,5 @@ class Questions():
 
         QUESTIONS_LIST.append(self.single_question)
         return {"message": "Question has been added successfully"}
+
 
