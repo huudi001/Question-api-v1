@@ -2,8 +2,10 @@ from flask import Flask, jsonify
 #from flask_jwt_extended import JWTManager
 from instance.config import app_config
 #from .api.v1.views.auth_endpoints import auth, BLACKLIST
-
+from .api.v1.views.meet_up_endpoint import meetup
 from .api.v1.views.question_endpoint import question
+
+
 
 
 def create_app(config):
@@ -47,6 +49,7 @@ def create_app(config):
         return jsonify(dict(error='Internal server error')), 500
 
     #app.register_blueprint(auth)
+    app.register_blueprint(meetup)
     app.register_blueprint(question)
 
 
