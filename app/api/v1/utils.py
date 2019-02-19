@@ -1,7 +1,7 @@
 def _iterator(list):
     for i in list:
         if i is None or not i:
-            return False
+            return False ""l
 
 
 def get_by_key(key, val, dict_):
