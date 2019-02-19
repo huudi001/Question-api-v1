@@ -47,7 +47,15 @@ def register():
     response.status_code = 201
     return response
 
-    
+
+
+
+
+
+
+
+
+
 @auth.route('/login', methods=['POST'])
 def login():
     '''login user by verifying password and creating an access token'''
@@ -77,10 +85,19 @@ def logout():
     BLACKLIST.add(json_token_identifier)
     return jsonify({"message": "Successfully logged out"}), 200
 
+
 @auth.route('/users', methods=['GET'])
 def get_all_users():
     '''Endpoint to get all users'''
 
     response = make_response(jsonify(User.get_all_users()))
+    response.status_code = 200
+    return response
+
+
+@auth.route('/users/<username>', methods=['GET'])
+def get_user_by_username(username):
+    '''Endpoint to get a  user by username'''
+    response = jsonify(User.get_user_by_username(username))
     response.status_code = 200
     return response

@@ -1,9 +1,12 @@
-from flask import Flask, jsonify
 from flask_jwt_extended import JWTManager
+from flask import Flask
 from instance.config import app_config
 from .api.v1.views.auth_endpoints import auth, BLACKLIST
+
 from .api.v1.views.meet_up_endpoint import meetup
 from .api.v1.views.question_endpoint import question
+
+
 def create_app(config):
     app = Flask(__name__)
     app.url_map.strict_slashes = False
@@ -57,22 +60,5 @@ def create_app(config):
     app.register_blueprint(meetup)
     app.register_blueprint(question)
 
+
     return app
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   

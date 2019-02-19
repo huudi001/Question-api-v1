@@ -21,14 +21,7 @@ class BaseTestCase(TestCase):
 
 
         del USERS_LIST[:]
-        
-       
+
+
         del QUESTIONS_LIST[:]
         del MEETUPS_LIST[:]
-
- 
-
-
-
-
-
