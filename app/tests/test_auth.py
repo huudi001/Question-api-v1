@@ -12,7 +12,7 @@ class Testauth(BaseTestCase):
             response2 = self.client.post('/api/v1/register', data=json.dumps(dict(firstname='khal',lastname='hai',othername='gok',email='khal60@gmail.com',password='maneed',confirm_password='maneed',phoneNumber='',username='',isAdmin='True',registered=str(datetime.datetime.now()) )), content_type='application/json')
             response_data2 = json.loads(response2.data)
             self.assertEqual("Make sure all fields have been filled out",response_data2["message"])
-            self.assertEqual(response2.status_code,206)
+            self.assertEqual(response2.status_code,206)  
 
             response3 = self.client.post('/api/v1/register', data=json.dumps(dict( )), content_type='application/json')
             response_data3 = json.loads(response3.data)
