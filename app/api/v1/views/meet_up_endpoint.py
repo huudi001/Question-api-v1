@@ -10,22 +10,6 @@ meetup = Blueprint('meetup', __name__, url_prefix='/api/v1')
 
 MeetUp = meetups.MeetUps()
 
-
-
-@meetup.route('/meetups/<int:meetup_id>', methods=['GET'])
-#@jwt_required
-def get_single_meetup(meetup_id):
-
-    response = jsonify(MeetUp.get_meetup_by_id(meetup_id))
-    response.status_code = 200
-    return response
-@meetup.route('/meetups/<upcoming>', methods=['GET'])
-def get_upcoming(self,upcoming):
-    upcoming = datetime.datetime.now().isoformat()
-
-    meetup = [meetups for meetups in MEETUPS_LIST if meetups['happening_on'] > upcoming]
-    return MeetUps
-
 @meetup.route('/meetups', methods=['POST'])
 #@jwt_required
 def post_meetup():
@@ -58,4 +42,18 @@ def post_meetup():
 
     response = jsonify(MeetUp.put(meetup_id, created_on, location, images, topic, happening_on, tags))
     response.status_code = 201
-    return respoonse
+    return response
+@meetup.route('/meetups/<upcoming>', methods=['GET'])
+#@jwt_required
+def get_all(upcoming):
+    response  = jsonify(MeetUp.get_upcoming(upcoming))
+    response.status_code = 200
+    return response
+
+@meetup.route('/meetups/<int:meetup_id>', methods=['GET'])
+#@jwt_required
+def get_single_meetup(meetup_id):
+
+    response = jsonify(MeetUp.get_meetup_by_id(meetup_id))
+    response.status_code = 200
+    return response

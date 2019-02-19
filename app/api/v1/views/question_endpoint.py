@@ -1,6 +1,6 @@
 from flask import request, jsonify,  Blueprint
 import datetime
-from ..models import questions
+from ..models import questions, meetups, users
 from ..models.questions import QUESTIONS_LIST
 from ..utils import get_by_key, _iterator, check_list
 
@@ -9,40 +9,6 @@ question = Blueprint('question', __name__, url_prefix='/api/v1')
 
 Question = questions.Questions()
 
-
-
-@question.route('/questions/<int:question_id>', methods=['GET'])
-def get_question(question_id):
-
-
-
-    response = jsonify(Question.get_single_question(question_id))
-    response.status_code = 200
-    return response
-
-@question.route('/questions/<int:question_id>/downvote', methods=['PATCH'])
-def downvote(question_id):
-
-
-
-    response = jsonify(Question.patch2(question_id))
-    response.status_code = 200
-    return response
-
-@questionroute('/questions/<int:question_id>/upvote', methods=['PATCH'])
-def upvote(question_id):
-
-    response = jsonify(Question.patch1(question_id))
-    response.status_code = 200
-    return response
-@question.route('/questions/<meetup_id>', methods=['GET'])
-def get_all_questions(self,meetup_id):
-
-
-        question = [questions for questions in QUESTIONS_LIST if questions['meetup'] == meetup_id]
-        if  not  question:
-            return {"message": "question for this meetup does not exist"}
-        return question
 @question.route('/questions', methods=['POST'])
 #@jwt_required
 def post_question():
@@ -71,3 +37,26 @@ def post_question():
 
 
 
+@question.route('/questions/<int:meetup_id>', methods=['GET'])
+#@jwt_required
+def get_questions(meetup_id):
+
+    response = jsonify(Question.get_all_questions(meetup_id))
+    response.status_code = 200
+    return response
+
+
+@question.route('/questions/<int:question_id>/downvote', methods=['PATCH'])
+def downvote(question_id):
+
+
+
+    response = jsonify(Question.patch2(question_id))
+    response.status_code = 200
+    return response
+@question.route('/questions/<int:question_id>/upvote', methods=['PATCH'])
+def upvote(question_id):
+
+    response = jsonify(Question.patch1(question_id))
+    response.status_code = 200
+    return response
