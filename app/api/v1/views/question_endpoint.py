@@ -5,7 +5,7 @@ from ..models.questions import QUESTIONS_LIST
 from ..utils import get_by_key, _iterator, check_list
 
 
-question = Blueprint('question', __name__, url_prefix='/api/v1')
+question = Blueprint('question', __name__, url_prefix='/api/v1')  
 
 Question = questions.Questions()
 
